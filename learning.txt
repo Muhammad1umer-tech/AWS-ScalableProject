@@ -1,0 +1,67 @@
+NAT is attach by public subnet
+
+routing make subnet public and privates, every subnet is private firstly. (important, faced bug, that public subnet has not internet, becz it has not route table access). and more over, internet protocol is necessary, as ping uses icmp, web projects uses, tcp, 
+
+i create the rout table, and add 0.0.0.0/0 -> IGW
+
+if i add this table to any subnet, then that subnet will become public
+
+In the route table, we define outbound routes (i.e., where traffic from your resources should go), not the inbound traffic (i.e., where traffic is coming from).
+
+difference between ec2 outbound and route table outbound
+
+bastian Host -> everyone who wants to access our resources, has to go thru this tunnel 
+
+
+Inbound traffic: Inbound traffic (traffic coming to your instances) is controlled not by the route table, but by security groups and network ACLs (Access Control Lists), which act as firewalls controlling what kind of incoming traffic is allowed to reach the resources (e.g., EC2 instances) in your VPC.
+
+The NAT Gateway is "one-way" in the sense that. It does not allow traffic that is not part of an ongoing session initiated by the private instance. It only facilitates responses to outbound requests initiated from the private instance.
+
+
+
+NAT gateaway works like a NAT: that need elastic IP for address translation.
+
+Inbound means coming in or arriving, while outbound means going out or departing.
+
+s3 enabled public access
+if desabled, still we need to add policy to access it.
+
+if bucket policy is empty, we still be able to access bucket
+
+
+what is auto assign
+why ip changes
+
+Question:
+Why is my backend EC2 instance able to connect to my RDS instance, even though the EC2 security group only allows inbound traffic on port 22 (SSH)?
+
+Answer:
+Your EC2 instance can connect to the RDS instance because AWS security groups are stateful. The RDS security group allows inbound traffic on port 5432 from the EC2's private IP range (10.0.2.0/24), and the EC2's outbound rule permits all traffic. This stateful behavior ensures that return traffic from RDS to EC2 is automatically allowed, enabling the connection to work as expected.
+
+
+
+
+issue to check, check whether the instances is private, public or not. is it connecting to nat or not.
+api gateaway
+
+
+
+When you specify the source of the rule as the ALB's security group, you're saying, "Allow traffic from any resource (like an ALB) that is associated with this specific security group."
+
+
+vpc link (inbound none, outbound 443, 80 -> alb sg)
+
+target group:
+Port defines the specific port on the EC2 instances where the ALB will send traffic.
+Since your EC2 instances are configured to listen on port 8000 (i.e., your backend application or service is running on this port), the ALB needs to know which port to send the incoming HTTP requests to.
+
+The Target Group is where the ALB routes traffic to your backend EC2 instances.
+You define the protocol (HTTP) and port (8000) based on your EC2 instances' setup
+
+In order to access host postgress
+
+/etc/postgresql/17/main/postgresql.conf. listen_addresses = '*'. So, it does not only listens on localhost
+
+/etc/postgresql/17/main/pg_hba.conf host all all 172.0.0.0/8 md5 (172.0.0.0/16 is the host ip of docker0)
+
+sudo systemctl restart postgresql That’s how you can user host service on docker container.
