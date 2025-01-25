@@ -67,6 +67,8 @@ Firstly, I created Custom VPC to create an isolated environment.
 
 I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assigned this role to my two backend instances. Additionally, I configured a bucket policy on my S3 bucket to allow access only to principals with a specific ARN.
 
+![image](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/s3-policy.png)
+
 ### 4. Security Rules
 
 **For Public Instance**
@@ -77,6 +79,9 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
   - Protocol ICMP accessible via the internet for the ping the instance.
 - **Outbound Rules**:
   - All ports and protocol is allowed from the frontend instance.
+ 
+  ![image](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/frontend-inbound.png)
+
 
 **For Private Instance**
 
@@ -85,12 +90,20 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
 - **Outbound Rules**:
   - All ports and protocol is allowed from the backend instances.
 
+
+![image](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/backend-inbound.png)
+
+
 **For RDS Instance**
 
 - **Inbound Rules**:
   - Port `5432` is open for only 10.0.2.0/24, 10.0.3.0/24 ranges, which are internal CIDR range of our backend instances.
 - **Outbound Rules**:
   - All ports and protocol is allowed from the backend instances.
+
+
+![image](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/rds-Inbound.png)
+
 
 **For VPC Link**
 
@@ -99,7 +112,10 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
 - **Outbound Rules**:
   - Port `80` and `443` is open to only those services that has security group "sg-0c42666672cbb1ea1 / scalableproject-vpclink-sg" attached with it, in our case it is ALB.
 
-![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/sg.png)
+
+![image](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/vpclink-outbound.png)
+
+
 
 **For ALB**
 
@@ -107,6 +123,15 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
   - Port `80` and `443` is open to only those services that has security group "sg-0e4fb68719bfbec57 / test-scalableproject-vpc-link-sg" attached with it, in our case it is vpc link.
 - **Outbound Rules**:
   - Port `8000` is open for only 10.0.2.0/24, 10.0.3.0/24 ranges, which are internal IPs of backend instances.
+
+
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/alb-inbound.png)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/SG/alb-outbound.png)
+
+---
+
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/sg.png)
+
 
 ### 5. Application Load Balancer
 
@@ -121,8 +146,5 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
 
 ### 6. API GateAway
 First, I created a VPC link to enable API Gateway to communicate with the ALB internally. After that, I created the API and, at the integration level, connected it to the ALB.
-
----
-
 
 ---
