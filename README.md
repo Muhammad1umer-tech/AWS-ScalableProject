@@ -18,7 +18,7 @@ I used various AWS services, including S3 for object storage, RDS for database m
 
 ## AWS Architecture
 
-![Alt Text](Architecture)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/architecture.png)
 
 ### Key Components:
 
@@ -51,7 +51,7 @@ Firstly, I created Custom VPC to create an isolated environment.
   - Host the RDS instance and 2 EC2 instances for the backend and database.
   - Configured NAT Gateway to allow communication from the private subnet to the internet for necessary updates.
 
-![Alt Text](SUBNET)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/subnet.png)
 
 ### 2. EC2 instances
 
@@ -61,7 +61,7 @@ Firstly, I created Custom VPC to create an isolated environment.
 - **Private EC2 Instances:**
   I created two EC2 instances to host my backend. During the development stage, I temporarily enabled public IPs to make them accessible for cloning the project. After cloning, I installed Docker on them, used Docker Compose to bring up the project, and reverted the instances to private for security.
 
-![Alt Text](instances)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/instances.png)
 
 ### 3. IAM Policy
 
@@ -99,7 +99,7 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
 - **Outbound Rules**:
   - Port `80` and `443` is open to only those services that has security group "sg-0c42666672cbb1ea1 / scalableproject-vpclink-sg" attached with it, in our case it is ALB.
 
-![Alt Text](SG)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/sg.png)
 
 **For ALB**
 
@@ -116,11 +116,13 @@ I created a role with the AmazonS3ReadOnlyAccess policy attached to it and assig
 - **Load Balancer:**
   I set up an Application Load Balancer (ALB) and linked it to the Target Group. The ALB is configured to distribute incoming traffic evenly across the backend instances, ensuring high availability and fault tolerance.
 
-![Alt Text](TragetGroup)
-![Alt Text](ALB)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/target-group.png)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/alb.png)
 
 ### 6. API GateAway
-
 First, I created a VPC link to enable API Gateway to communicate with the ALB internally. After that, I created the API and, at the integration level, connected it to the ALB.
+
+---
+
 
 ---
