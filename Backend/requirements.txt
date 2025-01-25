@@ -1,0 +1,8 @@
+python-dotenv
+psycopg2
+uvicorn
+fastapi
+pandas
+fsspec
+s3fs
+boto3

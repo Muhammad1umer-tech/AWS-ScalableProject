@@ -1,0 +1,12 @@
+services:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    container_name: react-frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - .env:/app/.env
+    command: npm start
+

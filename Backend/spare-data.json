@@ -1,0 +1,7 @@
+[
+    {"are you familiar with python": "yes, I am highly proficient in Python"},
+    {"do you know how to use tensorflow": "yes, I have in-depth knowledge of TensorFlow"},
+    {"can you build neural networks": "yes, I have significant experience building neural networks"},
+    {"have you worked on data preprocessing": "yes, I have extensive experience in data preprocessing"},
+    {"do you understand reinforcement learning": "yes, I have a strong understanding of reinforcement learning"}
+]
