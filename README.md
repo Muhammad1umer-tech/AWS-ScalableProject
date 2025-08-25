@@ -18,7 +18,7 @@ I used various AWS services, including S3 for object storage, RDS for database m
 
 ## AWS Architecture
 
-![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/architecture.png)
+![Alt Text](https://github.com/Muhammad1umer-tech/AWS-ScalableProject/blob/main/images/architectures.png)
 
 ### Key Components:
 
